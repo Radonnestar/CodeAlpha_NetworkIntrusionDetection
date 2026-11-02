@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intrusion Detection Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <main class="wrap">
+    <header class="top">
+      <div>
+        <p class="eyebrow">Suricata live monitor</p>
+        <h1>Intrusion Detection Dashboard</h1>
+      </div>
+      <p class="status" id="status">Connecting</p>
+    </header>
+
+    <section class="kpis">
+      <article class="card kpi"><span id="kpi-total">0</span><p>Alerts</p></article>
+      <article class="card kpi"><span id="kpi-attackers">0</span><p>Attackers</p></article>
+      <article class="card kpi"><span id="kpi-blocked">0</span><p>Blocked now</p></article>
+      <article class="card kpi"><span id="kpi-techniques">0</span><p>ATT&amp;CK techniques</p></article>
+    </section>
+
+    <section class="grid">
+      <article class="card wide">
+        <h2>Alerts over the last 5 minutes</h2>
+        <canvas id="chart" height="140"></canvas>
+      </article>
+      <article class="card"><h2>Blocked addresses</h2><ul class="list" id="bans"></ul></article>
+      <article class="card"><h2>Top attackers</h2><ul class="list" id="attackers"></ul></article>
+      <article class="card"><h2>Alerts by rule</h2><ul class="list" id="rules"></ul></article>
+      <article class="card"><h2>MITRE ATT&amp;CK</h2><ul class="list" id="techniques"></ul></article>
+      <article class="card wide"><h2>Live alert feed</h2><ul class="feed" id="feed"></ul></article>
+    </section>
+  </main>
+</body>
+</html>

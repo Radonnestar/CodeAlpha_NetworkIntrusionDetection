@@ -1,0 +1,13 @@
+alert http any any -> any 8080 (msg:"LAB SQL injection: UNION SELECT in URI"; flow:established,to_server; http.uri; content:"union"; nocase; content:"select"; nocase; distance:0; classtype:web-application-attack; sid:9000001; rev:1; metadata:mitre_technique T1190;)
+
+alert http any any -> any 8080 (msg:"LAB SQL injection: boolean tautology in URI"; flow:established,to_server; http.uri; pcre:"/(%27|')\s*(or|and)\s*(%27|')?\d*(%27|')?\s*=\s*(%27|')?\d/i"; classtype:web-application-attack; sid:9000002; rev:1; metadata:mitre_technique T1190;)
+
+alert http any any -> any 8080 (msg:"LAB Cross-site scripting: script tag in URI"; flow:established,to_server; http.uri; content:"<script"; nocase; classtype:web-application-attack; sid:9000003; rev:1; metadata:mitre_technique T1059;)
+
+alert http any any -> any 8080 (msg:"LAB Path traversal attempt"; flow:established,to_server; http.uri; content:"../"; classtype:web-application-attack; sid:9000004; rev:1; metadata:mitre_technique T1083;)
+
+alert http any any -> any 8080 (msg:"LAB Scanner user agent detected"; flow:established,to_server; http.user_agent; content:"sqlmap"; nocase; classtype:attempted-recon; sid:9000005; rev:1; metadata:mitre_technique T1595;)
+
+alert http any any -> any 8080 (msg:"LAB Brute force: repeated login attempts"; flow:established,to_server; http.method; content:"POST"; http.uri; content:"/login"; threshold:type threshold, track by_src, count 5, seconds 10; classtype:attempted-user; sid:9000006; rev:1; metadata:mitre_technique T1110;)
+
+alert tcp any any -> any any (msg:"LAB Port scan: many SYNs from one source"; flags:S,12; threshold:type threshold, track by_src, count 20, seconds 5; classtype:attempted-recon; sid:9000007; rev:1; metadata:mitre_technique T1046;)

@@ -1,0 +1,237 @@
+:root {
+  --bg: #070b24;
+  --card: rgba(22, 32, 80, 0.62);
+  --line: rgba(160, 180, 255, 0.2);
+  --text: #eaf0ff;
+  --muted: #9fb0e0;
+  --accent: #7cf0c9;
+  --danger: #ff6b7a;
+  --warn: #ffd166;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #070b24 0%, #162466 60%, #3b2a78 100%) fixed;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(62, 240, 192, 0.18), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(192, 124, 255, 0.2), transparent 45%);
+  animation: sky 16s ease-in-out infinite alternate;
+}
+
+.wrap {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warn);
+}
+
+h1 {
+  margin: 0.2rem 0 0;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.status {
+  margin: 0;
+  padding: 0.35rem 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.status::before {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 0.5rem;
+  content: "";
+  background: var(--warn);
+  border-radius: 50%;
+}
+
+.status--live::before {
+  background: var(--accent);
+  animation: pulse 1.6s ease-out infinite;
+}
+
+.status--down::before {
+  background: var(--danger);
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  padding: 1.1rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.kpi span {
+  font-size: 2.4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.list,
+.feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.35rem;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.list li::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: var(--share, 0%);
+  content: "";
+  background: rgba(124, 240, 201, 0.18);
+  transition: width 0.5s ease;
+}
+
+.list .empty {
+  color: var(--muted);
+}
+
+.ban {
+  color: var(--danger);
+}
+
+.feed li {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--warn);
+  border-radius: 0 8px 8px 0;
+  animation: slide 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.feed .sev1 {
+  border-left-color: var(--danger);
+}
+
+.feed code {
+  color: var(--accent);
+}
+
+.feed time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(124, 240, 201, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 0 0 10px rgba(124, 240, 201, 0);
+  }
+}
+
+@keyframes sky {
+  to {
+    transform: scale(1.15) translateX(2%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
